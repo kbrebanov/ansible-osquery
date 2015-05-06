@@ -1,6 +1,8 @@
 osquery
 =======
 
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-kbrebanov.osquery-660198.svg)](https://galaxy.ansible.com/list#/roles/3495)
+
 Installs osquery
 
 Requirements
