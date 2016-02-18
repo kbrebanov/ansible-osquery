@@ -3,12 +3,15 @@
 
 - name: Include distribution specific variables
   include_vars: "{{ ansible_distribution }}.yml"
-  tags: osquery
+  tags:
+    - osquery
 
 - include: CentOS.yml
   when: ansible_distribution == "CentOS"
-  tags: osquery
+  tags:
+    - osquery
 
 - include: Ubuntu.yml
   when: ansible_distribution == "Ubuntu"
-  tags: osquery
+  tags:
+    - osquery

@@ -2,19 +2,29 @@
 # tasks file for osquery (Ubuntu specific)
 
 - name: Download osquery APT key
-  apt_key: >
-    keyserver=keyserver.ubuntu.com
-    id=C9D8B80B
-    state=present
-  tags: osquery
+  become: yes
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: C9D8B80B
+    state: present
+  tags:
+    - osquery
 
 - name: Configure osquery APT repository
-  apt_repository: >
-    repo='deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/trusty trusty main'
-    state=present
-  tags: osquery
+  become: yes
+  apt_repository:
+    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/trusty trusty main'
+    state: present
+  tags:
+    - osquery
 
 - name: Install osquery packages
-  apt: name={{ item }} state=present update_cache=yes
-  with_items: osquery_packages
-  tags: osquery
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "{{ osquery_packages }}"
+  tags:
+    - osquery
