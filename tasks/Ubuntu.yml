@@ -2,7 +2,6 @@
 # tasks file for osquery (Ubuntu specific)
 
 - name: Download osquery APT key
-  become: yes
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: C9D8B80B
@@ -10,16 +9,22 @@
   tags:
     - osquery
 
+- name: Ensure apt-transport-https is installed
+  apt:
+    name: apt-transport-https
+    state: present
+  when: ansible_distribution_release == 'xenial'
+  tags:
+    - osquery
+
 - name: Configure osquery APT repository
-  become: yes
   apt_repository:
-    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/trusty trusty main'
+    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main'
     state: present
   tags:
     - osquery
 
 - name: Install osquery packages
-  become: yes
   apt:
     name: "{{ item }}"
     state: present
@@ -28,3 +33,4 @@
     - "{{ osquery_packages }}"
   tags:
     - osquery
+
