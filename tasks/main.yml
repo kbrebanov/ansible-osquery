@@ -15,4 +15,3 @@
   when: ansible_distribution == "Ubuntu"
   tags:
     - osquery
-
