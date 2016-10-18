@@ -10,10 +10,18 @@
   tags:
     - osquery
 
+- name: Ensure apt-transport-https is installed
+  become: yes
+  apt:
+    name: apt-transport-https
+    state: present
+  tags:
+    - osquery
+
 - name: Configure osquery APT repository
   become: yes
   apt_repository:
-    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/trusty trusty main'
+    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/{{ ansible_distribution_release | lower }} {{ ansible_distribution_release | lower }} main'
     state: present
   tags:
     - osquery
