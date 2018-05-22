@@ -21,7 +21,7 @@
 - name: Configure osquery APT repository
   become: yes
   apt_repository:
-    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/{{ ansible_distribution_release | lower }} {{ ansible_distribution_release | lower }} main'
+    repo: 'deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/xenial xenial main'
     state: present
   tags:
     - osquery
